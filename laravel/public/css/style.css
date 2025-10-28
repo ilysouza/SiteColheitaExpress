@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+:root {
+  --first-color: hsl(82, 60%, 28%);
+  --title-color: hsl(0, 0%, 15%);
+  --text-color: hsl(0, 0%, 35%);
+  --body-color: #512da8;
+  --bigcontainer-color: hsl(0, 0%, 95%);
+  --container-color: hsl(0, 0%, 100%);
+
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --small-font-size: .813rem;
+}
+
+@media screen and (min-width: 1120px) {
+  :root {
+    --h2-font-size: 1.5rem;
+    --small-font-size: .875rem;
+  }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity:0.7;
+    font-size: 15px;
+}
+
+.logo {
+    font-size: 15px;
+    letter-spacing: 2px;
+}
+
+/*Navigation*/
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 6vh;
+    background-color: hsl(0, 45%, 47%);
+    position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  box-shadow: 0 8px 24px hsla(0, 0%, 0%, .35);
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+}
+
+.nav-list li {
+    letter-spacing: 3px;
+    margin-left: 32px;
+}
+
+nav .carrinho-icon {
+    position: relative;
+    font-size: 20px;
+    color: #fff;
+    display: flex;
+}
+
+nav .carrinho-icon .carrinho-item-count {
+    position: absolute;
+    top: 0;
+    right: -6px;
+    width: 15px;
+    height: 15px;
+    background: #253238;
+    border-radius: 50%;
+    font-size: 8px;
+    color: #fff;
+    line-height: 20px;
+    text-align: center;
+    display: none;
+}
+
