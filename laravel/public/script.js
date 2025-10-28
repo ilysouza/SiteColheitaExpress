@@ -24,7 +24,7 @@ function displayProducts() {
                 <span class="card__description">${product.price} por ${product.type}</span>
                 <h2 class="card__title">${product.title}</h2>
                 <span class="card__description">${product.local}</span>
-                <a href="#" class="card__button">Comprar</a>
+                <a href="{{ url('/product-detail') }}" class="card__button">Comprar</a>
             </div>
         `;
         productContainer.appendChild(productCard);

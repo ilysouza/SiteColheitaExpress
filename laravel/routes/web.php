@@ -1,19 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsuarioController;
 
-Route::get('/', function () {
-    return view('index');
+Route::post('/registrar', [UsuarioController::class, 'registrar']);
+Route::post('/login', [UsuarioController::class, 'login']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [UsuarioController::class, 'perfil']);
+    Route::post('/perfil/atualizar', [UsuarioController::class, 'atualizarPerfil']);
 });
 
-Route::get('/login', function () {
+Route::get('/login', function() {
     return view('loginpage');
 });
 
-Route::get('/cart', function () {
-    return view('cart');
-});
+Route::get('/index', function() {
+    $usuario = auth()->user(); // pega o usuário logado
+    return view('index', compact('usuario'));
+})->middleware('auth'); // protege a rota para usuários logados
 
-Route::get('/product-detail', function () {
-    return view('product-detail');
-});
