@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/bigcontainer.css">
-    <link rel="stylesheet" href="../css/product-detail.css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bigcontainer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/product-detail.css') }}">
 
     <title>Colheita Express</title>
     <meta name="description" content="Um site para ajudar agrícultores locais 
@@ -24,12 +24,10 @@
         <li><a href="{{ url('/index') }}">Inicio</a></li>
         <li><a href="{{ url('/produtores') }}">Produtores</a></li>
         <li><a href="{{ url('/contato') }}">Contato</a></li>
-        <li><a href="{{ url('/perfil') }}">Perfil</a></li>
-
-        @if($usuario->tipo == 'produtor')
-            <li><a href="{{ url('/meus-produtos') }}">Meus Produtos</a></li>
-        @endif
-
+            <li><a href="{{ url('/perfil') }}">Perfil</a></li>
+            @if(auth()->user()->tipo == 'produtor')
+                <li><a href="{{ url('/meus-produtos') }}">Meus Produtos</a></li>
+            @endif
         <li><a href="{{ url('/cart') }}" class="carrinho-icon">
             <i class="fa-solid fa-cart-shopping"></i>
             <span class="carrinho-item-count"></span></a></li>
@@ -42,7 +40,7 @@
     <main> <!--Conteúdo principal do site-->
         <div class="bigcontainer">
 
-            <span class="voltar"><a href="index.html"><i class="fa-solid fa-arrow-left"></i></a></span>
+            <span class="voltar"><a href="{{ url('/index') }}"><i class="fa-solid fa-arrow-left"></i></a></span>
 
             <div class="produto-detalhe">
                 <div class="produto-img">
@@ -139,8 +137,8 @@
 
 
     </main>
-    <script src="../products.js"></script>
-    <script src="../script.js"></script>
+    <script src="{{ asset('products.js') }}"></script>
+    <script src="{{ asset('script.js') }}"></script>
 </body>
 
 </html>

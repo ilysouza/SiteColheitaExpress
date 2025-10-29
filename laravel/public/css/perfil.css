@@ -1,32 +1,4 @@
-/* Fonte e reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
-}
 
-body {
-    background-color: #f0f2f5;
-    display: flex;
-    justify-content: center;
-    padding: 40px 0;
-}
-
-.perfil-container {
-    background-color: #fff;
-    width: 900px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    padding: 30px;
-}
-
-/* Títulos */
-.perfil-container h1 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #512da8;
-}
 
 /* Abas */
 .tabs {

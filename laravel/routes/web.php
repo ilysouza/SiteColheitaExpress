@@ -19,3 +19,15 @@ Route::get('/index', function() {
     return view('index', compact('usuario'));
 })->middleware('auth'); // protege a rota para usuários logados
 
+
+Route::get('/product-detail', function () {
+    return view('product-detail'); // 'product-detail' é o nome do arquivo em resources/views
+});
+
+Route::get('/cart', function () {
+    return view('cart'); // O nome da sua view (cart.blade.php) sem o .blade.php
+});
+
+Route::get('/produtores', function () {
+    return view('produtores'); // Assumindo que sua view se chama produtor.blade.php
+});
