@@ -6,6 +6,7 @@ const producers = [
         id: 1,
         produtor: 'Lucia Ferreira',
         name: 'Sabor do Campo', 
+        descricao: 'Eu sou a Lucia, apaixonada por frutas! No Sabor do Campo, colho cada fruta no ponto certo, com muito cuidado para manter o sabor e a doçura natural. Tudo fresquinho, como se tivesse acabado de sair do pé.',
         location: 'Rua Principal, 100 - Centro',
         phone: '(11) 98765-4321',
         image: '../img/luciaferreira.jpg'
@@ -14,6 +15,7 @@ const producers = [
         id: 2,
         produtor: 'Ana Costa',
         name: 'Orgânicos da Vila', 
+        descricao: 'Meu nome é Ana e acredito que comida boa vem de uma terra bem cuidada. No Orgânicos da Vila, cultivo uma mistura de produtos 100% orgânicos — verduras, frutas e temperos — sem agrotóxicos e com muito amor.',
         location: 'Av. Sustentável, 50 - Vila Verde',
         phone: '(21) 98765-1234',
         image: '../img/anacosta.jpg'
@@ -22,6 +24,7 @@ const producers = [
         id: 3,
         produtor: 'Rodinei Ramos',
         name: 'Pomar da Montanha', 
+        descricao: 'Sou o Rodinei, e no Pomar da Montanha cultivo verduras e legumes fresquinhos, direto da terra para sua mesa. Trabalho com carinho e sem pressa, respeitando o tempo da natureza para oferecer sempre produtos saborosos e saudáveis.',
         location: 'Estrada do Pico, KM 5 - Montanha',
         phone: '(31) 98765-5678',
         image: '../img/rodineiramos.jpg'
@@ -30,6 +33,7 @@ const producers = [
         id: 4,
         produtor: 'João Silva',
         name: 'Terra Fértil', 
+        descricao: 'Meu nome é João, e na Terra Fértil cultivo raízes e tubérculos de primeira qualidade. Batatas, cenouras, beterrabas — tudo plantado com cuidado, colhido na hora certa e cheio de sabor da roça.',
         location: 'Fazenda Bonita, s/n - Zona Rural',
         phone: '(31) 98765-5678',
         image: '../img/joaosilva.jpg'
@@ -38,6 +42,7 @@ const producers = [
         id: 5,
         produtor: 'Carlos Oliveira',
         name: 'Horta da Serra', 
+        descricao: 'Sou o Carlos, e na Horta da Serra produzo temperos e hortaliças sempre frescos. Gosto de ver a cozinha ganhar vida com o aroma das ervas e o verde das folhas que cultivo com tanto zelo.',
         location: 'Recanto do Sossego, 12 - Serra',
         phone: '(31) 98765-5678',
         image: '../img/carlosoliveira.jpeg'
@@ -46,6 +51,7 @@ const producers = [
         id: 6,
         produtor: 'Magno Arthur',
         name: 'Sítio Flor da Terra', 
+        descricao: 'Eu sou o Magno, e no meu sítio, a Flor da Terra, cultivo frutas vermelhas e exóticas. Morangos, amoras, physalis… tudo feito com carinho e colhido no ponto certo, para quem aprecia sabores únicos e naturais.',
         location: 'Rodovia das Flores, 77 - Interior',
         phone: '(35) 99999-1234',
         image: '../img/magno.jpg'
@@ -54,6 +60,7 @@ const producers = [
         id: 7,
         produtor:'Marcia Lurdes',
         name: 'Sítio Boa Esperança', 
+        descricao: 'Eu sou a Marcia, e no Sítio Boa Esperança cultivo grãos e sementes com dedicação. Aqui, cada colheita é resultado de muito cuidado e paciência, para que você tenha alimentos nutritivos e de qualidade na sua mesa.',
         location: 'Alameda do Vale, 33 - Vale',
         phone: '(12) 98888-5678',
         image: '../img/marcialurdes.jpg'
@@ -62,14 +69,16 @@ const producers = [
         id: 8,
         produtor: 'Caio Vieira',
         name: 'Rancho Verde', 
+        descricao: 'Sou o Caio, do Rancho Verde. Aqui produzimos um pouco de tudo: frutas, verduras, queijos e compotas. Gosto de levar para as pessoas o verdadeiro sabor da roça, com aquele toque simples e caseiro que faz a diferença.',
         location: 'Estrada Velha, 200 - Rancho',
         phone: '(35) 97777-9012',
-        image: '../img/caiovieira'
+        image: '../img/caiovieira.jpg'
     },
     { 
         id: 9,
         produtor: 'Clarice Lima',
         name: 'Mel da Serra', 
+        descricao: 'Sou a Clarice, e minhas abelhas são minhas parceiras. No Mel da Serra, produzo mel puro e artesanal, além de própolis e cera natural. Cada pote carrega o sabor da serra e o trabalho das abelhas que tanto respeito.',
         location: 'Colmeia de Ouro, 1 - Serra Alta',
         phone: '(21) 96666-3456',
         image: '../img/claricelima.jpg'

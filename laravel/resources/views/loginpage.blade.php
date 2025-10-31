@@ -16,8 +16,16 @@
 <div class="form-container sign-in">
     <form id="login-form">
         <h1>Faça login</h1>
+        <div class="social-icons">
+            <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <span>ou use seu email e senha para fazer login</span>
         <input type="email" id="email" placeholder="Email" required>
         <input type="password" id="senha" placeholder="Senha" required>
+        <a href="#">Esqueceu sua senha?</a>
         <button type="submit">Entre</button>
     </form>
 </div>
@@ -26,6 +34,13 @@
 <div class="form-container sign-up">
     <form id="register-form">
         <h1>Cadastre-se</h1>
+        <div class="social-icons">
+            <a href="#" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="icon"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <span>ou use seu email e senha para se registrar</span>
         <input type="text" id="nome" placeholder="Nome" required>
         <input type="email" id="email-register" placeholder="Email" required>
         <input type="password" id="senha-register" placeholder="Senha" required>
@@ -42,13 +57,13 @@
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
-                    <h1>Boas vindas de volta!</h1>
+                    <h1>Boas vindas novamente!</h1>
                     <p>Insira seus dados pessoais para usar todos os recursos do site</p>
                     <button class="hidden" id="login">Faça login</button>
                 </div>
                 <div class="toggle-panel toggle-right">
-                    <h1>Olá novamente!</h1>
-                    <p>Insira seus dados pessoais para usar todos os recursos do site</p>
+                    <h1>Olá, seja bem-vindo!</h1>
+                    <p>Cadastre-se com seus dados pessoais para usar todos os recursos do site</p>
                     <button class="hidden" id="register">Cadastre-se</button>
                 </div>
             </div>

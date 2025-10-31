@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bigcontainer.css') }}">
 </head>
-<body data-usertipo="{{ $usuario->tipo }}">
+<body data-usertipo="{{ auth()->user()->tipo }}">
 
 <!-- Navbar -->
 <header>
@@ -38,7 +38,9 @@
 </header>
 
 <div class="bigcontainer">
-        <h1>Olá, {{ $usuario->nome }}</h1>
+    <div class="comeco">
+        <h1>Olá, {{ auth()->user()->nome }}</h1>
+    </div>
 
         <!-- Abas -->
         <div class="tabs">
@@ -47,19 +49,20 @@
             <button class="tab-btn" data-tab="privacidade">Privacidade</button>
             <button class="tab-btn" data-tab="pagamento">Pagamento</button>
             <button class="tab-btn" data-tab="conta">Conta</button>
-            @if($usuario->tipo == 'produtor')
+            @if(auth()->user()->tipo == 'produtor')
                 <button class="tab-btn" data-tab="estatisticas">Estatísticas</button>
             @endif
         </div>
 
         <!-- Conteúdo das abas -->
         <div class="tab-content" id="geral">
-            <h2>Localização</h2>
-            <label>Endereço principal</label>
-            <input type="text" placeholder="Digite seu endereço">
-            <label>CEP</label>
-            <input type="text" placeholder="Digite seu CEP">
-        </div>
+    <h2>Localização</h2>
+    <label for="endereco">Endereço principal</label>
+    <input type="text" id="endereco" placeholder="Digite seu endereço" value="{{ auth()->user()->endereco ?? '' }}"> 
+    
+    <label for="cep">CEP</label>
+    <input type="text" id="cep" placeholder="Digite seu CEP" value="{{ auth()->user()->cep ?? '' }}">
+</div>
 
         <div class="tab-content" id="notificacoes">
             <h2>Notificações</h2>
@@ -88,10 +91,10 @@
         </div>
 
         <div class="tab-content" id="conta">
-            <h2>Alterar Senha</h2>
-            <input type="password" placeholder="Senha atual">
-            <input type="password" placeholder="Nova senha">
-            <input type="password" placeholder="Confirmar nova senha">
+    <h2>Alterar Senha</h2>
+    <input type="password" id="senha_atual" placeholder="Senha atual">
+    <input type="password" id="nova_senha" placeholder="Nova senha">
+    <input type="password" id="confirmar_nova_senha" placeholder="Confirmar nova senha">
 
             <h2>Autenticação em Duas Etapas</h2>
             <button>Configurar autenticação</button>
@@ -102,31 +105,71 @@
         </div>
 
         <!-- Aba de estatísticas só para produtores -->
-        @if($usuario->tipo == 'produtor')
+        @if(auth()->user()->tipo == 'produtor')
         <div class="tab-content" id="estatisticas">
             <h2>Estatísticas de Vendas</h2>
             <canvas id="graficoVendas"></canvas>
             <h3>Produtos vendidos por mês</h3>
             <table>
-                <thead>
-                    <tr>
-                        <th>Mês</th>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>Janeiro</td><td>Produto A</td><td>12</td></tr>
-                    <tr><td>Fevereiro</td><td>Produto B</td><td>8</td></tr>
-                    <tr><td>Março</td><td>Produto C</td><td>15</td></tr>
-                </tbody>
-            </table>
+    <thead>
+        <tr>
+            <th>Estatística</th> 
+            <th>Janeiro</th>
+            <th>Fevereiro</th>
+            <th>Março</th>
+            <th>Abril</th>
+            <th>Maio</th>
+            <th>Junho</th>
+            <th>Julho</th>
+            <th>Agosto</th>
+            <th>Setembro</th>
+            <th>Outubro</th>
+            <th>Novembro</th>
+            <th>Dezembro</th>
+            </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Produto Mais Vendido</td>
+            <td>Produto A</td> 
+            <td>Produto B</td>
+            <td>Produto C</td>
+            <td>Produto A</td>
+            <td>Produto D</td>
+            <td>Produto C</td>
+            <td>Produto C</td>
+            <td>Produto B</td>
+            <td>Produto D</td>
+            <td>Produto A</td>
+            <td>Produto D</td>
+            <td>Produto B</td>
+        </tr>
+        <tr>
+            <td>Quantidade</td>
+            <td>12</td>
+            <td>8</td>
+            <td>15</td>
+            <td>10</td>
+            <td>22</td>
+            <td>33</td>
+            <td>12</td>
+            <td>20</td>
+            <td>14</td>
+            <td>9</td>
+            <td>18</td>
+            <td>26</td>
+        </tr>
+    </tbody>
+</table>
         </div>
         @endif
 
         <button id="salvarPerfilBtn">Salvar Perfil</button>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script> 
+
 <script src="{{ asset('perfil.js') }}"></script>
+<script src="{{ asset('login.js') }}"></script>
 </body>
 </html>

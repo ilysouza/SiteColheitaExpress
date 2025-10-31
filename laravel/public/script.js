@@ -1,4 +1,9 @@
 function getProducerById(producerId) {
+    // Garante que o array 'producers' exista antes de tentar buscar.
+    if (typeof producers === 'undefined') {
+        console.error("Erro: Array 'producers' não encontrado. Carregue products.js primeiro.");
+        return null;
+    }
     return producers.find(producer => producer.id === producerId);
 }
 
@@ -14,12 +19,10 @@ function displayProducts() {
         // Usa a função reutilizável
         const productCard = createProductCard(product); 
         productContainer.appendChild(productCard);
-        
-        // ** (Não precisa mais do código de evento de clique aqui, ele está dentro de createProductCard) **
     });
 }
 
-// ------------------ PRODUCT DETAIL ------------------
+// ------------------ PRODUCT DETAIL (Exibição de um Produto) ------------------
 document.addEventListener("DOMContentLoaded", () => {
     const detailContainer = document.querySelector(".produto-detalhe");
     if (detailContainer) {
@@ -70,10 +73,10 @@ function displayProductDetail() {
     });
 }
 
-// ------------------ FUNÇÃO ADICIONAR AO CARRINHO ------------------
+// ------------------ FUNÇÃO ADICIONAR AO CARRINHO (e outras funções de carrinho) ------------------
+// ... (Funções de carrinho permanecem iguais)
 function addToCart(product) {
     let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-
     const existingItem = cart.find(item => item.id === product.id);
 
     if (existingItem) {
@@ -84,17 +87,15 @@ function addToCart(product) {
             title: product.title,
             price: product.price,
             image: product.image,
-            type: product.type, // ✅ corrigido
+            type: product.type,
             quantity: 1
         });
     }
 
     sessionStorage.setItem("cart", JSON.stringify(cart));
-
     updateCartBadge();
 }
 
-// ------------------ FUNÇÃO MOSTRAR O CARRINHO ------------------
 const isCartPage = document.querySelector(".cart");
 
 if (isCartPage) {
@@ -103,7 +104,6 @@ if (isCartPage) {
 
 function displayCart() {
     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-
     const cartItemsContainer = document.querySelector(".cart-itens");
     const subtotalEl = document.querySelector(".subtotal");
     const grandTotalEl = document.querySelector(".grand-total");
@@ -141,8 +141,8 @@ function displayCart() {
         cartItemsContainer.appendChild(cartItem);
     });
     
-    subtotalEl.textContent = `R$${subtotal.toFixed(2)}`;
-    grandTotalEl.textContent = `R$${subtotal.toFixed(2)}`;
+    subtotalEl.textContent = `R$${subtotal.toFixed(2).replace(".", ",")}`;
+    grandTotalEl.textContent = `R$${subtotal.toFixed(2).replace(".", ",")}`;
 
     removeCartItem();
     updateCartQuantity();
@@ -177,7 +177,7 @@ function updateCartQuantity() {
 function updateCartBadge() {
     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
     const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
-const badge = document.querySelector(".carrinho-item-count");
+    const badge = document.querySelector(".carrinho-item-count");
 
 
     if (badge) {
@@ -192,15 +192,20 @@ const badge = document.querySelector(".carrinho-item-count");
 
 updateCartBadge();
 
-// ------------------ PRODUTOR DETAIL (produtor.blade.php) ------------------
+
+// ------------------ PRODUTOR DETAIL (produtor.blade.php) - Inicialização Dinâmica ------------------
 
 document.addEventListener("DOMContentLoaded", () => {
     const producerPageContainer = document.querySelector(".producer-detail-container");
     if (producerPageContainer) {
-        // Para testar, vamos carregar o produtor com ID 1
-        // Em um projeto real, você buscaria esse ID da URL (ex: /produtores/1)
-        const producerIdToLoad = 1; 
-        displayProducerDetail(producerIdToLoad);
+        const idInput = document.querySelector('#producer-id');
+        const producerIdToLoad = idInput && idInput.value ? parseInt(idInput.value) : null; 
+        
+        if (producerIdToLoad) {
+            displayProducerDetail(producerIdToLoad);
+        } else {
+             console.warn("Aviso: Não foi possível obter o ID do produtor na página de detalhes.");
+        }
     }
 });
 
@@ -218,11 +223,19 @@ function displayProducerDetail(producerId) {
     document.querySelector('.producer-photo').src = producer.image;
     document.querySelector('.producer-person-name').textContent = producer.produtor;
     document.querySelector('.producer-store-name').textContent = producer.name;
-    document.querySelector('.producer-store-name-repeat').textContent = producer.name;
+    // (A linha 'producer-store-name-repeat' provavelmente não existe no seu HTML atual, 
+    // mas o script tenta preenchê-la. Mantenha por segurança se ela existir em outro lugar.)
+    // document.querySelector('.producer-store-name-repeat').textContent = producer.name; 
     document.querySelector('.producer-location').textContent = `Local: ${producer.location}`;
     document.querySelector('.producer-phone').textContent = `Contato: ${producer.phone}`;
+    
+    // **LINHA CORRIGIDA:** Agora busca a classe '.producer-description' do HTML
+    const descricaoEl = document.querySelector('.producer-description'); 
+    if (descricaoEl) {
+        descricaoEl.textContent = producer.descricao || 'Descrição não disponível.';
+    }
 
-    // 3. Opcional: Mostrar os produtos deste produtor
+    // 3. Mostrar os produtos deste produtor
     displayProductsByProducer(producerId);
 }
 
@@ -230,6 +243,11 @@ function displayProducerDetail(producerId) {
 // Nova função para listar APENAS os produtos do produtor atual
 function displayProductsByProducer(producerId) {
     const productListContainer = document.querySelector(".producer-product-list");
+    
+    if (!productListContainer) {
+        return; 
+    }
+    
     productListContainer.innerHTML = ''; // Limpa o container
     
     // Filtrar a lista global de produtos
@@ -247,7 +265,7 @@ function displayProductsByProducer(producerId) {
     });
 }
 
-// ------------------ FUNÇÃO DE REUTILIZAÇÃO ------------------
+// ------------------ FUNÇÃO DE REUTILIZAÇÃO (Card de Produto) ------------------
 function createProductCard(product) {
     // Busca o nome do produtor para exibir na Home/Listas
     const producer = getProducerById(product.producer_id);
@@ -284,3 +302,64 @@ function createProductCard(product) {
 
     return productCard;
 }
+
+// -------------------------------------------------------------------------------------
+// ------------------ LISTAGEM DE TODOS OS PRODUTORES (producers.blade.php) ------------------
+// -------------------------------------------------------------------------------------
+
+const producersContainer = document.querySelector(".producers__list"); // Container na view /produtores
+
+if (producersContainer && typeof producers !== 'undefined') {
+    displayAllProducers();
+}
+
+function displayAllProducers() {
+    producersContainer.innerHTML = ''; // Limpa o container
+
+    producers.forEach(producer => {
+        const producerCard = document.createElement("article");
+        producerCard.classList.add("producer__card");
+        
+        // **OPCIONAL:** Adiciona a descrição na lista de produtores
+        const shortDescription = producer.descricao ? producer.descricao.substring(0, 80) + '...' : 'Descrição não disponível.';
+
+        producerCard.innerHTML = `
+            <div class="producer__header">
+                <div class="producer__background-blur" style="background-image: url(${producer.image});">
+                    <img src="${producer.image}" alt="Foto do Produtor ${producer.produtor}" class="producer__image">
+                </div>
+
+                <h2 class="producer__store-name">${producer.name}</h2>
+                <span class="producer__person-name">por ${producer.produtor}</span>
+            </div>
+            <div class="producer__body">
+                <p><strong>Localização:</strong> ${producer.location}</p>
+                <p><strong>Contato:</strong> ${producer.phone}</p>
+                
+                <p class="producer__short-description">${shortDescription}</p> <a href="/produtores/${producer.id}" class="producer__button">Ver Perfil e Produtos</a>
+            </div>
+        `;
+
+        producerCard.querySelector('a.producer__button').addEventListener('click', (e) => {
+            // O link já é dinâmico.
+        });
+
+
+        producersContainer.appendChild(producerCard);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Seleciona o botão/link de "voltar" PELA CLASSE .voltar
+    const backButton = document.querySelector('.voltar a'); // Seleciona o <a> dentro do span .voltar
+
+    if (backButton) {
+        // 2. Adiciona um "ouvinte" de clique
+        backButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Impede o comportamento padrão do link (ir para href="#")
+            
+            // 3. Executa o comando de voltar do navegador
+            window.history.back();
+        });
+    }
+});

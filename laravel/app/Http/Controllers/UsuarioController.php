@@ -72,19 +72,78 @@ class UsuarioController extends Controller
     {
         $usuario = auth()->user();
 
-        $request->validate([
+        // 1. REGRAS DE VALIDAÇÃO GERAL
+        $regras = [
             'endereco' => 'nullable|string|max:255',
             'cep' => 'nullable|string|max:20',
-        ]);
+            // Validações para Senha
+            'nova_senha' => 'nullable|string|min:6', // Mínimo de 6 caracteres
+            'senha_atual' => 'nullable|string',
+            // Validações para Preferências (se for um array)
+            'preferencias' => 'nullable|array',
+        ];
 
-        $usuario->update([
-            'endereco' => $request->endereco,
-            'cep' => $request->cep,
-        ]);
+        // Se a nova senha for enviada, a senha atual é exigida
+        if ($request->filled('nova_senha')) {
+            $regras['senha_atual'] = 'required|string'; 
+        }
+
+        // Valida os dados da requisição
+        $validatedData = $request->validate($regras);
+
+        // Objeto para armazenar o que será atualizado no banco
+        $updates = [];
+        $message = "Perfil atualizado com sucesso!";
+
+        // 2. LÓGICA DE ALTERAÇÃO DE SENHA (A MAIS CRÍTICA)
+        if ($request->filled('nova_senha')) {
+            
+            // Verifica se a nova senha e a confirmação do JS são iguais (a validação do Laravel não faz isso com campos separados, precisamos garantir)
+            // No seu JS, você já validou que 'nova_senha' == 'confirmar_nova_senha'.
+            
+            // Verifica se a senha atual fornecida está correta
+            if (!Hash::check($request->senha_atual, $usuario->senha)) {
+                 return response()->json([
+                     'success' => false, 
+                     'message' => 'A senha atual fornecida está incorreta.'
+                 ], 401); // Retorna 401 Unauthorized
+            }
+            
+            // Se a senha atual estiver correta, hasheia a nova senha para salvar
+            $updates['senha'] = Hash::make($validatedData['nova_senha']);
+            $message = "Perfil e Senha atualizados com sucesso!";
+        }
+        
+        // 3. ATUALIZAÇÃO DE ENDEREÇO E CEP
+        // Adiciona as atualizações de endereço e cep se existirem
+        $updates['endereco'] = $validatedData['endereco'] ?? $usuario->endereco;
+        $updates['cep'] = $validatedData['cep'] ?? $usuario->cep;
+
+
+        // 4. ATUALIZAÇÃO DE PREFERÊNCIAS (OPCIONAL, DEPENDE DO SEU MODELO)
+        if ($request->has('preferencias') && is_array($request->preferencias)) {
+            // Se você tiver uma coluna JSON/Text para preferências:
+            // $updates['preferencias_json'] = json_encode($request->preferencias);
+
+            // Se você tiver colunas individuais (ex: 'notificacoes_pedidos', 'perfil_publico'):
+            // Você precisará mapear o nome do toggle para o nome da coluna no banco.
+            
+            // Exemplo MOCK para preferências (sem salvar de fato, apenas para demonstração)
+            // Se você não tem um campo no banco, apenas ignore esta seção por enquanto.
+        }
+
+        // 5. SALVA NO BANCO (se houver algo para salvar)
+        if (!empty($updates)) {
+            $usuario->update($updates);
+            return response()->json([
+                'success' => true, 
+                'message' => $message
+            ]);
+        }
 
         return response()->json([
-            'success' => true,
-            'message' => 'Perfil atualizado com sucesso!'
+            'success' => false, 
+            'message' => 'Nenhuma alteração válida detectada.'
         ]);
     }
 }

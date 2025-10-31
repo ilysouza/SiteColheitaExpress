@@ -1,132 +1,195 @@
+/* Variáveis de Cores (Ajuste conforme o seu `style.css` se necessário) */
+:root {
+    --primary-color: #512da8; /* Roxo principal */
+    --secondary-color: #5c6bc0; /* Roxo mais claro para hover */
+    --background-light: #f4f4f9; /* Fundo leve */
+    --container-bg: #ffffff; /* Fundo dos cards */
+    --text-color: #333;
+    --border-color: #e0e0e0;
+    --danger-color: #e53935;
+    --success-color: #43a047;
+}
 
+/* 1. Estrutura e Título Principal */
+.bigcontainer {
+    padding: 40px 20px;
+    background-color: var(--background-light);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra suave para a área principal */
+}
 
-/* Abas */
+.comeco h1 {
+    margin-top: 40px; /* Ajusta o padding superior do h1 */
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* 2. Abas de Navegação (Tabs) */
 .tabs {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    justify-content: flex-start; /* Alinha à esquerda */
+    gap: 10px; /* Espaço entre os botões */
+    border-bottom: 2px solid var(--border-color); /* Linha divisória fina */
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    overflow-x: auto; /* Permite rolagem se houver muitas abas */
 }
 
 .tab-btn {
-    padding: 10px 20px;
-    background-color: #e0e0e0;
+    padding: 10px 25px;
+    background-color: transparent; /* Fundo transparente por padrão */
     border: none;
-    border-radius: 8px;
+    border-bottom: 3px solid transparent; /* Linha de fundo transparente */
+    border-radius: 0; /* Remove borda arredondada para parecer uma aba */
     cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s;
-    margin: 5px;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Impede que os botões diminuam */
+}
+
+.tab-btn:hover {
+    color: var(--secondary-color);
 }
 
 .tab-btn.active {
-    background-color: #512da8;
-    color: #fff;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color); /* Linha de destaque para a aba ativa */
+    background-color: var(--container-bg); /* Fundo branco ou claro para a aba ativa */
 }
 
-/* Conteúdo das abas */
+/* 3. Conteúdo das Abas e Formulários */
 .tab-content {
-    display: none;
-    padding: 20px 0;
-    border-top: 1px solid #ccc;
+    background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Eleva o conteúdo em um 'card' */
+    margin-top: 15px; /* Espaço entre as abas e o conteúdo */
+    /* Remove a borda superior antiga */
+    border-top: none; 
 }
 
 .tab-content h2 {
-    margin-bottom: 10px;
-    color: #512da8;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    border-left: 4px solid var(--primary-color); /* Destaque na lateral */
+    padding-left: 10px;
+    font-weight: 600;
 }
 
 .tab-content label {
     display: block;
-    margin: 10px 0 5px;
+    margin: 15px 0 8px;
     font-weight: 500;
+    color: var(--text-color);
 }
 
-.tab-content input {
+.tab-content input[type="text"], 
+.tab-content input[type="password"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    outline: none;
+    max-width: 400px; /* Limita a largura dos inputs para melhor leitura */
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    transition: border-color 0.3s;
 }
 
-/* Toggles */
-.toggle-btn {
-    display: inline-block;
-    background-color: #e0e0e0;
+.tab-content input:focus {
+    border-color: var(--primary-color); /* Destaque ao focar */
+    box-shadow: 0 0 0 2px rgba(81, 45, 168, 0.2);
+}
+
+/* 4. Toggles e Botões Secundários */
+.toggle-btn, .tab-content button:not(#salvarPerfilBtn, .danger-btn) {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--border-color);
+    color: var(--text-color);
     border: none;
-    border-radius: 20px;
-    padding: 10px 15px;
-    margin: 5px 5px 15px 0;
+    border-radius: 25px; /* Mais arredondado */
+    padding: 10px 20px;
+    margin: 5px 10px 15px 0;
     cursor: pointer;
+    font-weight: 500;
     transition: all 0.3s;
 }
 
-.toggle-btn.active {
-    background-color: #512da8;
+.toggle-btn.active, 
+.tab-content button.active:not(#salvarPerfilBtn, .danger-btn) {
+    background-color: var(--success-color); /* Cor verde para indicar ativo */
     color: #fff;
 }
 
-/* Botões de perigo */
+/* 5. Botões de Perigo */
 .danger-btn {
-    background-color: #e53935;
+    background-color: var(--danger-color);
     color: #fff;
-    border: none;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border-radius: 8px;
-    cursor: pointer;
-    margin: 5px 0;
-    transition: all 0.3s;
+    margin-right: 10px;
 }
 
 .danger-btn:hover {
     background-color: #c62828;
 }
 
-/* Botão salvar perfil */
+/* 6. Botão Principal Salvar Perfil */
 #salvarPerfilBtn {
-    display: block;
-    width: 200px;
-    margin: 30px auto 0 auto;
-    padding: 12px 20px;
-    background-color: #512da8;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s;
+    /* Mantém a largura e centralização */
+    margin-top: 40px;
+    padding: 15px 20px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    font-weight: 600;
+    color: #ddd;
+    box-shadow: 0 4px 10px rgba(81, 45, 168, 0.3); /* Sombra mais destacada */
 }
 
 #salvarPerfilBtn:hover {
-    background-color: #5c6bc0;
+    background-color: var(--secondary-color);
+    box-shadow: 0 6px 15px rgba(81, 45, 168, 0.4);
 }
 
-/* Tabela estatísticas */
+/* 7. Tabela de Estatísticas (Versão Compacta) */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Opcional: Reduz o tamanho da fonte para economizar mais espaço */
+    /* font-size: 0.9em; */ 
 }
 
 table th, table td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: center;
+    border: none; 
+    /* AJUSTE AQUI: Reduzindo o padding de 12px 8px para 8px 6px */
+    padding: 8px 6px; 
+    /* Outra opção mais agressiva: 6px 4px */
 }
 
 table th {
-    background-color: #512da8;
+    background-color: var(--primary-color);
     color: #fff;
+    font-weight: 600;
+    /* Adiciona alinhamento central para títulos de colunas curtos */
+    text-align: center;
+}
+
+table td {
+    /* Centraliza o texto nas células de dados para melhor leitura */
+    text-align: center;
 }
 
 table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f9f9f9; 
 }
 
-/* Canvas gráfico */
+/* 8. Canvas Gráfico */
 canvas {
-    max-width: 100%;
-    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: var(--container-bg);
+    margin-bottom: 25px;
 }

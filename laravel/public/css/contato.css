@@ -1,0 +1,146 @@
+.contato-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.titulo-principal {
+    color: var(--primary-color, #512DA8); /* Usando a cor primária do seu tema */
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.subtitulo-contato {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.contato-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+}
+
+/* --- Formulário --- */
+
+.contato-form {
+    padding-right: 20px;
+    border-right: 1px solid #eee;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #444;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.btn-enviar {
+    background-color: var(--primary-color, #512DA8);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-enviar:hover {
+    background-color: #4527A0; /* Um tom ligeiramente mais escuro */
+}
+
+/* --- Informações de Contato --- */
+
+.contato-info h2 {
+    color: var(--primary-color, #512DA8);
+    margin-bottom: 25px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.info-item i {
+    font-size: 1.5em;
+    color: var(--primary-color, #512DA8);
+    margin-right: 15px;
+    padding-top: 5px;
+}
+
+.info-item h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.info-item p {
+    margin: 3px 0 0 0;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.info-item .horario {
+    font-size: 0.85em;
+    color: #888;
+}
+
+.redes-sociais {
+    margin-top: 30px;
+}
+
+.redes-sociais h3 {
+     color: #333;
+     margin-bottom: 15px;
+}
+
+.redes-sociais a {
+    font-size: 1.8em;
+    color: var(--primary-color, #512DA8);
+    margin-right: 15px;
+    transition: color 0.3s;
+}
+
+.redes-sociais a:hover {
+    color: #4527A0;
+}
+
+
+/* --- Responsividade (Ajuste para telas pequenas) --- */
+
+@media (max-width: 768px) {
+    .contato-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .contato-form {
+        border-right: none;
+        padding-right: 0;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #eee;
+    }
+}
+

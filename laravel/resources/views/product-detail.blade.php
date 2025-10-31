@@ -40,7 +40,9 @@
     <main> <!--Conteúdo principal do site-->
         <div class="bigcontainer">
 
-            <span class="voltar"><a href="{{ url('/index') }}"><i class="fa-solid fa-arrow-left"></i></a></span>
+            <span class="voltar" id="back-button-produtor">
+    <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+</span>
 
             <div class="produto-detalhe">
                 <div class="produto-img">
